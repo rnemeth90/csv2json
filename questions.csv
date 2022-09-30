@@ -1,6 +1,6 @@
-Identifier,First name,Last name
-901242,Rachel,Booker
-207074,Laura,Grey
-408129,Craig,Johnson
-934600,Mary,Jenkins
-507916,Jamie,Smith
+Identifier,Access code,Recovery code,First name,Last name,Department,Location
+9012,12se74,rb9012,Rachel,Booker,Sales,Manchester
+2070,04ap67,lg2070,Laura,Grey,Depot,London
+4081,30no86,cj4081,Craig,Johnson,Depot,London
+9346,14ju73,mj9346,Mary,Jenkins,Engineering,Manchester
+5079,asf134,js5079,Jamie,Smith,Engineering,Manchester

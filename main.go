@@ -11,21 +11,20 @@ import (
 	"strings"
 )
 
-type file struct {
-	path string
-}
-
 func main() {
-	f := file{
-		path: "./questions.csv",
+	if len(os.Args) < 2 {
+		log.Fatal("[ERR] Missing parameter, provide a file name")
 	}
-	result, _ := readCsvFile(f)
-	json := parseToJson(result)
+
+	fileName := os.Args[1]
+	result, err := readCsvFile(fileName)
+	check(err)
+	json := createOutput(result)
 	fmt.Println(string(json))
 }
 
-func readCsvFile(f file) ([][]string, error) {
-	file, err := os.Open(f.path)
+func readCsvFile(filePath string) ([][]string, error) {
+	file, err := os.Open(filePath)
 	check(err)
 	defer file.Close()
 
@@ -36,12 +35,19 @@ func readCsvFile(f file) ([][]string, error) {
 	return records, nil
 }
 
-func parseToJson(records [][]string) []byte {
+func createOutput(records [][]string) []byte {
 
 	if len(records) < 1 {
-		log.Fatal("Something wrong, the file maybe empty or length of the lines are not the same")
+		log.Fatal("[ERR] the file may be empty or the number of values in each line may be different")
 	}
 
+	parsedJson := parseJson(records)
+	rawMessage := json.RawMessage(parsedJson)
+	formattedJson, _ := json.MarshalIndent(rawMessage, "", "  ")
+	return formattedJson
+}
+
+func parseJson(records [][]string) string {
 	headers := make([]string, 0)
 	for _, v := range records[0] {
 		headers = append(headers, v)
@@ -79,10 +85,7 @@ func parseToJson(records [][]string) []byte {
 		}
 	}
 	buffer.WriteString(`]`)
-
-	rawMessage := json.RawMessage(buffer.String())
-	x, _ := json.MarshalIndent(rawMessage, "", "  ")
-	return x
+	return buffer.String()
 }
 
 func check(err error) {
