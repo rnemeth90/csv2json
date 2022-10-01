@@ -1,3 +1,4 @@
+// csv2json converts csv files to json and prints to stdout
 package main
 
 import (
