@@ -9,8 +9,9 @@ csv2json is a program that can parse csv files to json. This program follows the
 * to build yourself, you must have Go v 1.13+ installed
 
 ### Installing
-* go install github.com/rnemeth90/csv2json@latest
-
+```
+go install github.com/rnemeth90/csv2json@latest
+```
 ### Executing program
 ```
 ./csv2json example.csv
