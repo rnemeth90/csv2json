@@ -1,96 +1,116 @@
-// csv2json converts csv files to json and prints to stdout
 package main
 
 import (
-	"bytes"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
-	"log"
+	"io"
 	"os"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		log.Fatal("[ERR] Missing parameter, provide a file name")
-	}
+	file := os.Args[1]
 
-	fileName := os.Args[1]
-	result, err := readCsvFile(fileName)
-	check(err)
-	json := createOutput(result)
-	fmt.Println(string(json))
-}
-
-func readCsvFile(filePath string) ([][]string, error) {
-	file, err := os.Open(filePath)
-	check(err)
-	defer file.Close()
-
-	csvReader := csv.NewReader(file)
-	records, err := csvReader.ReadAll()
-	check(err)
-
-	return records, nil
-}
-
-func createOutput(records [][]string) []byte {
-
-	if len(records) < 1 {
-		log.Fatal("[ERR] the file may be empty or the number of values in each line may be different")
-	}
-
-	parsedJson := parseJson(records)
-	rawMessage := json.RawMessage(parsedJson)
-	formattedJson, _ := json.MarshalIndent(rawMessage, "", "  ")
-	return formattedJson
-}
-
-func parseJson(records [][]string) string {
-	headers := make([]string, 0)
-	for _, v := range records[0] {
-		headers = append(headers, v)
-	}
-
-	// Remove the header
-	records = records[1:]
-
-	var buffer bytes.Buffer
-	buffer.WriteString("[")
-	for i, d := range records {
-		buffer.WriteString("{")
-		for j, y := range d {
-			buffer.WriteString(`"` + headers[j] + `":`)
-			_, fErr := strconv.ParseFloat(y, 32)
-			_, bErr := strconv.ParseBool(y)
-			if fErr == nil {
-				buffer.WriteString(y)
-			} else if bErr == nil {
-				buffer.WriteString(strings.ToLower(y))
-			} else {
-				buffer.WriteString((`"` + y + `"`))
-			}
-			//end of property
-			if j < len(d)-1 {
-				buffer.WriteString(",")
-			}
-
-		}
-		//end of object of the array
-		buffer.WriteString("}")
-
-		if i < len(records)-1 {
-			buffer.WriteString(",")
-		}
-	}
-	buffer.WriteString(`]`)
-	return buffer.String()
-}
-
-func check(err error) {
+	data, err := readAndParseCsv(file)
 	if err != nil {
-		log.Fatal(err)
+		panic(fmt.Sprintf("error while handling csv file: %s\n", err))
 	}
+
+	json, err := csvToJSON(data)
+	if err != nil {
+		panic(fmt.Sprintf("error while converting csv to json file: %s\n", err))
+	}
+	fmt.Println(json)
+}
+
+func readAndParseCsv(path string) ([][]string, error) {
+	csvFile, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("error opening %s", path)
+	}
+
+	var rows [][]string
+
+	reader := csv.NewReader(csvFile)
+	for {
+		row, err := reader.Read()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			return rows, fmt.Errorf("failed to parse csv: %s", err)
+		}
+
+		rows = append(rows, row)
+	}
+
+	return rows, nil
+}
+
+func csvToJSON(rows [][]string) (string, error) {
+
+	var entries []map[string]interface{}
+	attributes := rows[0]
+
+	for _, row := range rows[1:] {
+		entry := map[string]interface{}{}
+		for i, value := range row {
+			attribute := attributes[i]
+			// split csv header key for nested objects
+			objectSlice := strings.Split(attribute, ".")
+			internal := entry
+			for index, val := range objectSlice {
+				// split csv header key for array objects
+				key, arrayIndex := arrayContentMatch(val)
+				if arrayIndex != -1 {
+					if internal[key] == nil {
+						internal[key] = []interface{}{}
+					}
+					internalArray := internal[key].([]interface{})
+					if index == len(objectSlice)-1 {
+						internalArray = append(internalArray, value)
+						internal[key] = internalArray
+						break
+					}
+					if arrayIndex >= len(internalArray) {
+						internalArray = append(internalArray, map[string]interface{}{})
+					}
+					internal[key] = internalArray
+					internal = internalArray[arrayIndex].(map[string]interface{})
+				} else {
+					if index == len(objectSlice)-1 {
+						internal[key] = value
+						break
+					}
+					if internal[key] == nil {
+						internal[key] = map[string]interface{}{}
+					}
+					internal = internal[key].(map[string]interface{})
+				}
+			}
+		}
+		entries = append(entries, entry)
+	}
+
+	bytes, err := json.MarshalIndent(entries, "", "	")
+	if err != nil {
+		return "", fmt.Errorf("Marshal error %s", err)
+	}
+
+	return string(bytes), nil
+}
+
+func arrayContentMatch(str string) (string, int) {
+	i := strings.Index(str, "[")
+	if i >= 0 {
+		j := strings.Index(str, "]")
+		if j >= 0 {
+			index, _ := strconv.Atoi(str[i+1 : j])
+			return str[0:i], index
+		}
+	}
+	return str, -1
 }
