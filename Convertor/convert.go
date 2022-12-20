@@ -32,6 +32,8 @@ func ReadAndParseCsv(path string) ([][]string, error) {
 		rows = append(rows, row)
 	}
 
+	fmt.Println(rows)
+
 	return rows, nil
 }
 
