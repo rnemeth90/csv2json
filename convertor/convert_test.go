@@ -1,18 +1,18 @@
 package convertor
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 
 	"github.com/stretchr/testify/require"
 )
 
 var sliceControl = [][]string{
-	[]string{"Year", "Score","Title"},
-	[]string{"1968","86","Greetings"},
-	[]string{"1970","17","Bloody Mama"},
+	[]string{"Year", "Score", "Title"},
+	[]string{"1968", "86", "Greetings"},
+	[]string{"1970", "17", "Bloody Mama"},
 	[]string{"1970", "73", "Hi,Mom!"},
-	[]string{"1971","40","Born to Win"},
+	[]string{"1971", "40", "Born to Win"},
 }
 
 var jsonControl = `
@@ -45,7 +45,7 @@ func TestConvertor(t *testing.T) {
 		want := sliceControl
 		got, _ := ReadAndParseCsv("UnitTestExample.csv")
 
-		if !reflect.DeepEqual(want,got) {
+		if !reflect.DeepEqual(want, got) {
 			t.Errorf("got %v, want %v", got, want)
 		}
 	})
@@ -54,6 +54,12 @@ func TestConvertor(t *testing.T) {
 		want := jsonControl
 		got, _ := CSVToJSON(sliceControl)
 
-		require.JSONEq(t,want,got)
+		require.JSONEq(t, want, got)
 	})
+}
+
+func BenchmarkConvertor(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CSVToJSON(sliceControl)
+	}
 }
