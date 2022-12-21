@@ -8,9 +8,16 @@ import (
 )
 
 func main() {
-	file := os.Args[1]
+	var csvFile *os.File
+	fi, _ := os.Stdin.Stat()
 
-	data, err := convertor.ReadAndParseCsv(file)
+	if (fi.Mode() & os.ModeCharDevice) == 0 {
+		csvFile = os.Stdin
+	} else {
+		csvFile, _ = os.Open(os.Args[1])
+	}
+
+	data, err := convertor.ReadAndParseCsv(csvFile)
 	if err != nil {
 		panic(fmt.Sprintf("error while handling csv file: %s\n", err))
 	}
@@ -20,4 +27,8 @@ func main() {
 		panic(fmt.Sprintf("error while converting csv to json file: %s\n", err))
 	}
 	fmt.Println(json)
+}
+
+func usage() {
+	fmt.Println("The usage:")
 }

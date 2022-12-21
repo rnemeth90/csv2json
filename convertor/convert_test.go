@@ -1,6 +1,7 @@
 package convertor
 
 import (
+	"os"
 	"reflect"
 	"testing"
 
@@ -42,8 +43,9 @@ var jsonControl = `
 
 func TestConvertor(t *testing.T) {
 	t.Run("[Test] ReadAndParseCSV()", func(t *testing.T) {
+		fileName, _ := os.Open("UnitTestExample.csv")
 		want := sliceControl
-		got, _ := ReadAndParseCsv("UnitTestExample.csv")
+		got, _ := ReadAndParseCsv(fileName)
 
 		if !reflect.DeepEqual(want, got) {
 			t.Errorf("got %v, want %v", got, want)

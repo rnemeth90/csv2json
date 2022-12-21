@@ -10,11 +10,7 @@ import (
 	"strings"
 )
 
-func ReadAndParseCsv(path string) ([][]string, error) {
-	csvFile, err := os.Open(path)
-	if err != nil {
-		return nil, fmt.Errorf("error opening %s", path)
-	}
+func ReadAndParseCsv(csvFile *os.File) ([][]string, error) {
 
 	var rows [][]string
 
