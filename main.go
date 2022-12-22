@@ -35,5 +35,5 @@ func main() {
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "Usage: %s file.csv\n\n", os.Args[0])
-	fmt.Println("*** You can also pass in CSV via pipe")
+	fmt.Println("*** You can also pass in CSV via stdin")
 }
