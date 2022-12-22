@@ -14,12 +14,16 @@ func main() {
 	if (fi.Mode() & os.ModeCharDevice) == 0 {
 		csvFile = os.Stdin
 	} else {
+		if len(os.Args) < 2 {
+			usage()
+			os.Exit(1)
+		}
 		csvFile, _ = os.Open(os.Args[1])
 	}
 
 	data, err := convertor.ReadAndParseCsv(csvFile)
 	if err != nil {
-		panic(fmt.Sprintf("error while handling csv file: %s\n", err))
+		panic(fmt.Sprintf("error while reading csv file: %s\n", err))
 	}
 
 	json, err := convertor.CSVToJSON(data)
@@ -30,5 +34,6 @@ func main() {
 }
 
 func usage() {
-	fmt.Println("The usage:")
+	fmt.Fprintf(os.Stderr, "Usage: %s file.csv\n\n", os.Args[0])
+	fmt.Println("*** You can also pass in CSV via pipe")
 }
