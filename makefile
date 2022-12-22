@@ -11,13 +11,13 @@ run:
 
 clean:
 	go clean
-	rm ${BINARY_NAME}
+	rm ${GOBIN}/${BINARY_NAME}
 
 deps:
     #go get github.com/gorilla/websocket
 
 compile:
 	echo "Compiling for every OS and Platform that matters"
-	GOOS=linux GOARCH=amd64 go build -o ${GOPATH}/bin/${BINARY_NAME} main.go
+	GOOS=linux GOARCH=amd64 go build -o ${GOBIN}/${BINARY_NAME} main.go
 
 all: deps build test compile
