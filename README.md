@@ -22,8 +22,8 @@ Or download the latest release [here](https://github.com/rnemeth90/csv2json/rele
 If you need help, submit an issue
 
 ## To Do
-- [ ] Read csv input from stdout (sent from another program)
-- [ ] Add automated builds for binary distribution
+- [x] Read csv input from stdout (sent from another program)
+- [x] Add automated builds for binary distribution
 
 ## Version History
 * 0.3
