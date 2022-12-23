@@ -12,6 +12,8 @@ csv2json is a program that can parse csv files to json. This program follows the
 ```
 go install github.com/rnemeth90/csv2json@latest
 ```
+Or download the latest release [here](https://github.com/rnemeth90/csv2json/releases)
+
 ### Executing program
 ```
 ./csv2json example.csv
