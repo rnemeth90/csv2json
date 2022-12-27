@@ -17,6 +17,9 @@ Or download the latest release [here](https://github.com/rnemeth90/csv2json/rele
 ### Executing program
 ```
 ./csv2json example.csv
+
+# Or read from stdout: 
+wget -qO- https://raw.githubusercontent.com/rnemeth90/csv2json/main/example.csv | csv2json 
 ```
 ## Help
 If you need help, submit an issue
