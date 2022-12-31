@@ -23,3 +23,5 @@ build/
 go.work
 
 # Local Builds
+
+csv2json
