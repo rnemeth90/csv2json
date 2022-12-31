@@ -9,11 +9,11 @@ import (
 )
 
 var sliceControl = [][]string{
-	[]string{"Year", "Score", "Title"},
-	[]string{"1968", "86", "Greetings"},
-	[]string{"1970", "17", "Bloody Mama"},
-	[]string{"1970", "73", "Hi,Mom!"},
-	[]string{"1971", "40", "Born to Win"},
+	{"Year", "Score", "Title"},
+	{"1968", "86", "Greetings"},
+	{"1970", "17", "Bloody Mama"},
+	{"1970", "73", "Hi,Mom!"},
+	{"1971", "40", "Born to Win"},
 }
 
 var jsonControl = `
