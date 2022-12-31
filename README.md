@@ -1,5 +1,4 @@
-# csv2json
-
+# csv2json [![build-release-binary](https://github.com/rnemeth90/csv2json/actions/workflows/build.yaml/badge.svg)](https://github.com/rnemeth90/csv2json/actions/workflows/build.yaml) [![Go Report Card](https://goreportcard.com/badge/github.com/rnemeth90/csv2json/convertor)](https://goreportcard.com/report/github.com/rnemeth90/csv2json/convertor)
 ## Description
 csv2json is a program that can parse csv files to json. This program follows the Unix philosophy in that it has a very concise purpose. Because of this, the json is sent to stdout, to be consumed by another program in whatever way you see fit.
 
@@ -18,8 +17,8 @@ Or download the latest release [here](https://github.com/rnemeth90/csv2json/rele
 ```
 ./csv2json example.csv
 
-# Or read from stdout: 
-wget -qO- https://raw.githubusercontent.com/rnemeth90/csv2json/main/example.csv | csv2json 
+# Or read from stdout:
+wget -qO- https://raw.githubusercontent.com/rnemeth90/csv2json/main/example.csv | csv2json
 ```
 ## Help
 If you need help, submit an issue
