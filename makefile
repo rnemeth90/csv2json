@@ -9,6 +9,9 @@ release: createbuilddir check-env $(OBJECTS) ## Build release binaries (requires
 clean: check-env ## Remove release binaries
 	rm -rf build
 
+format:
+	gofmt -w -s *.go
+
 createbuilddir:
 	mkdir -p build/bin
 
