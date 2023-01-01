@@ -40,7 +40,6 @@ jobs:
         go-version: '^1.19.2'
     - run: |
         go version
-        cd src
         if [ ! -e *.mod ]; then
           go mod init ${GITHUB_REPOSITORY}
         fi
@@ -84,6 +83,6 @@ jobs:
       with:
         name: ${{ env.GITHUB_REF_NAME }}
         tag: ${{ env.GITHUB_REF_NAME }}
-        artifacts: "src/csv2json"
+        artifacts: "csv2json"
         bodyFile: "body.log"
         token: ${{ secrets.GITHUB_TOKEN }}
