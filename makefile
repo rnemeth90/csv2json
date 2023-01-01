@@ -4,14 +4,16 @@ PACKAGE_NAME = github.com/rnemeth90/$(COMMAND_NAME)
 LDFLAGS = -ldflags=-X=main.version=$(VERSION)
 OBJECTS = $(patsubst $(COMMAND_NAME)-windows-amd64%,$(COMMAND_NAME)-windows-amd64%.exe, $(patsubst $(COMMAND_NAME)-windows-386%,$(COMMAND_NAME)-windows-386%.exe, $(patsubst %,$(COMMAND_NAME)-%-v$(VERSION), $(TARGETS))))
 
-release: check-env $(OBJECTS) ## Build release binaries (requires VERSION)
+release: createbuilddir check-env $(OBJECTS) ## Build release binaries (requires VERSION)
 
 clean: check-env ## Remove release binaries
-	rm -rf build/
-	# rm $(OBJECTS)
+	rm -rf build
+
+createbuilddir:
+	mkdir -p build/bin
 
 $(OBJECTS): $(wildcard *.go)
-	env GOOS=`echo $@ | cut -d'-' -f2` GOARCH=`echo $@ | cut -d'-' -f3 | cut -d'.' -f 1` go build -o /build/$@ $(LDFLAGS) $(PACKAGE_NAME)
+	env GOOS=`echo $@ | cut -d'-' -f2` GOARCH=`echo $@ | cut -d'-' -f3 | cut -d'.' -f 1` go build -o build/bin/$@ $(LDFLAGS) $(PACKAGE_NAME)
 
 .PHONY: help check-env
 
