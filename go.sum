@@ -3,12 +3,6 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/rnemeth90/csv2json/convertor v0.0.0-20221220231524-e08aa1f1f1e6 h1:er45kXGxRr1QC8tnUHJGyuHLmzn+9/OIS7CbasORljQ=
-github.com/rnemeth90/csv2json/convertor v0.0.0-20221220231524-e08aa1f1f1e6/go.mod h1:dZWJrbb8dPXakV8+WbAbWr3kUprN83+zkpF4I3aedJw=
-github.com/rnemeth90/csv2json/convertor v0.0.0-20221221192527-ec0ce5f526c1 h1:gnmd7PjY325SMHf4dsQaAO2rvaTVo08EnvKkzCccPO4=
-github.com/rnemeth90/csv2json/convertor v0.0.0-20221221192527-ec0ce5f526c1/go.mod h1:x1Dnffd235rKf4cBKlDWK/2NLJA4j+ADG2DQcorF8NM=
-github.com/rnemeth90/csv2json/convertor v0.0.0-20221223234028-40cac6860842 h1:BwO1FUa5aRByrRHC1Fjry/TtZriI3ylzMMjqlNUcj2g=
-github.com/rnemeth90/csv2json/convertor v0.0.0-20221223234028-40cac6860842/go.mod h1:x1Dnffd235rKf4cBKlDWK/2NLJA4j+ADG2DQcorF8NM=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
 github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
