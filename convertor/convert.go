@@ -15,6 +15,7 @@ func ReadAndParseCsv(csvFile *os.File) ([][]string, error) {
 	var rows [][]string
 
 	reader := csv.NewReader(csvFile)
+	reader.FieldsPerRecord = -1
 	for {
 		row, err := reader.Read()
 		if err == io.EOF {
