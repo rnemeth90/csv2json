@@ -87,6 +87,6 @@ jobs:
       with:
         name: ${{ env.GITHUB_REF_NAME }}
         tag: ${{ env.GITHUB_REF_NAME }}
-        artifacts: "csv2json"
+        artifacts: "./cmd/csv2json/csv2json"
         bodyFile: "body.log"
         token: ${{ secrets.GITHUB_TOKEN }}
