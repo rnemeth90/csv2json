@@ -47,6 +47,7 @@ jobs:
         fi
         go mod tidy
         go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" main.go
+        cp csv2json ../../
         ls -lisa
         execFile=$(find . -type f -executable)
         echo $execFile
@@ -90,3 +91,4 @@ jobs:
         artifacts: "./cmd/csv2json/csv2json"
         bodyFile: "body.log"
         token: ${{ secrets.GITHUB_TOKEN }}
+        removeArtifacts: true
