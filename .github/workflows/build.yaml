@@ -44,7 +44,7 @@ jobs:
           go mod init ${GITHUB_REPOSITORY}
         fi
         go mod tidy
-        go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" main.go
+        go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" cmd/csv2json/main.go
         execFile=$(find . -type f -executable)
 
     - run: git version
