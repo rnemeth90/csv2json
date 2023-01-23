@@ -40,13 +40,13 @@ jobs:
         go-version: '^1.19.2'
     - run: |
         go version
-        # cd ./cmd/csv2json/
+        cd ./cmd/csv2json/
         ls -lisa
         if [ ! -e *.mod ]; then
           go mod init ${GITHUB_REPOSITORY}
         fi
         go mod tidy
-        go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" cmd/csv2json/main.go
+        go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" main.go
         execFile=$(find . -type f -executable)
 
     - run: git version
