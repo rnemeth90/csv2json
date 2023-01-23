@@ -47,10 +47,10 @@ jobs:
         fi
         go mod tidy
         go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" main.go
-        cp csv2json ../../
-        ls -lisa
         execFile=$(find . -type f -executable)
-        echo $execFile
+        echo "Copying $execFile"
+        cp csv2json ../../
+        ls -lisa ../../
 
     - run: git version
     - run: git branch
