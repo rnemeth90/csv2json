@@ -44,7 +44,7 @@ echo "old version: $semantic_version new_version: ${newtag}"
 CUR_DIR=${PWD##*/}
 
 mkdir -p build
-cp main.go build/main.go
+cp cmd/csv2json/main.go build/main.go
 cd build
 [ -f go.mod ] || go mod init rnemeth90/$CUR_DIR
 go mod tidy
