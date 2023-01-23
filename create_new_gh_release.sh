@@ -81,7 +81,7 @@ if [[ "$answer" == "y" ]]; then
   git commit -a -m "changes for new tag $newtag"
   git tag $newtag && git push origin $newtag
   git push
-  gh release create $newtag -F /tmp/$newtag.log build/main
+  gh release create $newtag -F /tmp/$newtag.log build/main.go
   set +x
 else
   echo "aborted release creation"
