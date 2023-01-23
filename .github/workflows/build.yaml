@@ -47,7 +47,9 @@ jobs:
         fi
         go mod tidy
         go build -o csv2json -ldflags "-X main.Version=${GITHUB_REF_NAME} -X main.BuiltBy=github-actions" main.go
+        ls -lisa
         execFile=$(find . -type f -executable)
+        echo $execFile
 
     - run: git version
     - run: git branch
