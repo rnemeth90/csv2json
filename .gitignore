@@ -24,3 +24,4 @@ go.work
 
 # Local Builds
 out/bin
+out/build
