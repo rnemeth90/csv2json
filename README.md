@@ -26,6 +26,8 @@ If you need help, submit an issue
 ## To Do
 - [x] Read csv input from stdout (sent from another program)
 - [x] Add automated builds for binary distribution
+- [ ] add cli args
+- [ ] update usage()
 
 ## Version History
 * 0.3
